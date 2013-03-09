@@ -18,6 +18,9 @@
  */
 package javagtk2;
 
+import java.util.*;
+import java.lang.ref.*;
+
 
 /**
  * GTK component class
@@ -33,7 +36,7 @@ public abstract class GComponent
      */
     public GComponent(final long memaddress)
     {
-	this.memaddress = memaddress;
+	GComponent.memtable.put(new Long(this.memaddress = memaddress) /* yes, new */, new WeakReference<GComponent>(this));
     }
     
     
@@ -42,6 +45,30 @@ public abstract class GComponent
      * The memory address of the widget
      */
     protected final long memaddress;
+    
+    /**
+     * Memory address to instance table
+     */
+    protected static final HashMap<Long, WeakReference<GComponent>> memtable = new HashMap<Long, WeakReference<GComponent>>();
+    
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void finalize() throws Throwable
+    {
+	try
+	{
+	    GComponent.memtable.remove(new Long(this.memaddress)); /* yes, new */
+	}
+	catch (final Throwable ignore)
+	{
+	    /* Just for safety, we do not want this to interfere with super being finalize():ed */
+	}
+	super.finalize();
+    }
     
     
     
