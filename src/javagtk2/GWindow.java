@@ -238,7 +238,7 @@ public class GWindow extends GComponent
      */
     private void setPreferredSize(final int width, final int height)
     {
-	__setDefaultSize(this.memaddress, width, height)
+	__setDefaultSize(this.memaddress, width, height);
     }
     
     /**
@@ -355,7 +355,7 @@ public class GWindow extends GComponent
      */
     public void addMnemonic(final int keyvalue, final GComponent target)
     {
-	__addMnemonic(this.memaddress, keybalue, target.memaddress);
+	__addMnemonic(this.memaddress, keyvalue, target.memaddress);
     }
     
     /**
@@ -366,7 +366,7 @@ public class GWindow extends GComponent
      */
     public void removeMnemonic(final int keyvalue, final GComponent target)
     {
-	__removeMnemonic(this.memaddress, keybalue, target.memaddress);
+	__removeMnemonic(this.memaddress, keyvalue, target.memaddress);
     }
     
     /**
@@ -402,7 +402,7 @@ public class GWindow extends GComponent
     {
 	long address = __getFocus(this.memaddress);
 	if (address == 0)
-	    return 0;
+	    return null;
 	final WeakReference<GComponent> ref = GComponent.memtable.get(new Long(address)); /* yes, new*/
 	return ref == null ? null : ref.get();
     }
@@ -518,28 +518,40 @@ public class GWindow extends GComponent
      * 
      * @param  value  The new state value
      */
-    public void setMinimised(boolean value);
+    public void setMinimised(boolean value)
+    {
+	__setIconified(this.memaddress, value);
+    }
     
     /**
      * Sets the window's maximisation state
      * 
      * @param  value  The new state value
      */
-    public void setMaximised(boolean value);
+    public void setMaximised(boolean value)
+    {
+	__setMaximised(this.memaddress, value);
+    }
     
     /**
      * Sets the window's fullscreen state
      * 
      * @param  value  The new state value
      */
-    public void setFullscreen(boolean value);
+    public void setFullscreen(boolean value)
+    {
+	__setFullscreen(this.memaddress, value);
+    }
     
     /**
      * Sets the window's stick state
      * 
      * @param  value  The new state value
      */
-    public void setStick(boolean value);
+    public void setStick(boolean value)
+    {
+	__setStick(this.memaddress, value);
+    }
     
     /**
      * <p>Sets the window's always on top state</p>
@@ -549,7 +561,10 @@ public class GWindow extends GComponent
      * 
      * @param  value  The new state value
      */
-    public void setAlwaysOnTop(boolean value);
+    public void setAlwaysOnTop(boolean value)
+    {
+	__setKeepAbove(this.memaddress, value);
+    }
     
     /**
      * <p>Sets the window's always on bottom state</p>
@@ -559,7 +574,10 @@ public class GWindow extends GComponent
      * 
      * @param  value  The new state value
      */
-    public void setAlwaysOnBottom(boolean value);
+    public void setAlwaysOnBottom(boolean value)
+    {
+	__setKeepBelow(this.memaddress, value);
+    }
     
     /**
      * Sets the window's minimisation state
