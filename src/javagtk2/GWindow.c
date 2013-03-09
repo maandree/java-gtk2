@@ -36,7 +36,128 @@ JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1new(JNIEnv* env, jclass class)
 
 
 /**
- * Set the window's opacity
+ * Sets the window's title
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  title       The window's new title
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setTitle(JNIEnv* env, jclass class, jlong memaddress, jstring title)
+{
+  (void) class;
+  
+  const char* _title = (*env)->GetStringUTFChars(env, title, 0);
+  gtk_window_set_title((GtkWindow*)memaddress, _title);
+}
+
+
+/**
+ * Gets the window's title
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The window's title
+ */
+JNIEXPORT jstring JNICALL Java_javagtk2_GWindow__1_1getTitle(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  const char* title = gtk_window_get_title((GtkWindow*)memaddress);
+  return (*env)->NewStringUTF(env, title);
+}
+
+
+/**
+ * Sets whether the window is resizable
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  resizable   Whether the window should be resizable
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setResizable(JNIEnv* env, jclass class, jlong memaddress, jboolean resizable)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_resizable((GtkWindow*)memaddress, resizable);
+}
+
+
+/**
+ * Gets whether the window is resizable
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the window is resizable
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getResizable(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_resizable((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Activates the currently focused component within the window
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether a component got activated
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1activate_1focus(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_activate_focus((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Activates the default component for the window
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether a component got activated
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1activate_1default(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_activate_default((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether the window is modal
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  modal       Whether the window should be modal
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setModal(JNIEnv* env, jclass class, jlong memaddress, jboolean modal)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_modal((GtkWindow*)memaddress, modal);
+}
+
+
+/**
+ * Gets whether the window is modal
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the window is modal
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getModal(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_modal((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's opacity
  * 
  * @param  memaddress  The memory address of the component
  * @param  opacity     The window's new opacity
@@ -49,8 +170,9 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setOpacity(JNIEnv* env, jclass 
   gtk_window_set_opacity((GtkWindow*)memaddress, opacity);
 }
 
+
 /**
- * Get the window's opacity
+ * Gets the window's opacity
  * 
  * @param   memaddress  The memory address of the component
  * @return              The window's opacity
