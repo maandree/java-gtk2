@@ -52,7 +52,7 @@ public abstract class GComponent
      */
     public void setVisible(final boolean visiblity)
     {
-	this.setVisible(visible, false);
+	this.setVisible(visiblity, false);
     }
     
     /**
