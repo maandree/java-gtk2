@@ -88,7 +88,7 @@ LIB_JAVAGTK=$(LIB_PREFIX)$(LIB)$(LIB_EXT)
 
 
 # compile
-all: $(JAVA_CLASS) $(LIB_JAVAGTK)
+all: $(JAVA_CLASS) $(JNI_H) $(LIB_JAVAGTK)
 
 # generate .h
 h: $(JNI_H)
