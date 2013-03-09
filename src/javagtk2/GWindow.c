@@ -157,6 +157,284 @@ JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getModal(JNIEnv* env, jclas
 
 
 /**
+ * Sets the window's preferred size
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  width       The window's new preferred width
+ * @param  height      The window's new preferred height
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setDefaultSize(JNIEnv* env, jclass class, jlong memaddress, jint width, jint height)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_default_size((GtkWindow*)memaddress, width, height);
+}
+
+
+/**
+ * Sets the window for which the window is transient
+ * 
+ * @param  memaddress     The memory address of the component
+ * @param  parentaddress  The memory address of the window for which the window is transient
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setTransientFor(JNIEnv* env, jclass class, jlong memaddress, jlong parentaddress)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_transient_for((GtkWindow*)memaddress, (GtkWindow*)parentaddress);
+}
+
+
+/**
+ * Gets the window, if any, for which the window is transient
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The window, if any, for which the window is transient
+ */
+JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1getTransientFor(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return (jlong)gtk_window_get_transient_for((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Returns whether the window is part of the current active toplevel
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the window is part of the current active toplevel
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1isActive(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_is_active((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Returns whether the input focus is within this window
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the input focus is within this window
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1hasToplevelFocus(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_has_toplevel_focus((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Adds a mnemonic to this window
+ * 
+ * @param  memaddress     The memory address of the component
+ * @param  keyvalue       The mnemonic
+ * @param  targetaddress  The memory address of the component that gets activated by the mnemonic
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1addMnemonic(JNIEnv* env, jclass class, jlong memaddress, jint keyvalue, jlong targetaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_add_mnemonic((GtkWindow*)memaddress, keyvalue, (GtkWidget*)targetaddress);
+}
+
+
+/**
+ * Removes a mnemonic to this window
+ * 
+ * @param  memaddress     The memory address of the component
+ * @param  keyvalue       The mnemonic
+ * @param  targetaddress  The memory address of the component that gets activated by the mnemonic
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1removeMnemonic(JNIEnv* env, jclass class, jlong memaddress, jint keyvalue, jlong targetaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_remove_mnemonic((GtkWindow*)memaddress, keyvalue, (GtkWidget*)targetaddress);
+}
+
+
+/**
+ * Gets the currently focused component within the window
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The memory address of the currently focused component within the window
+ */
+JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1getFocus(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return (jlong)gtk_window_get_focus((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the currently focused component within the window
+ * 
+ * @param  memaddress    The memory address of the component
+ * @param  focusaddress  The memory address of the currently focused component within the window
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setFocus(JNIEnv* env, jclass class, jlong memaddress, jlong focusaddress)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_focus((GtkWindow*)memaddress, (GtkWidget*)focusaddress);
+}
+
+
+/**
+ * Sets the default component
+ * 
+ * @param  memaddress      The memory address of the component
+ * @param  defaultaddress  The new default component's memory address
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setDefault(JNIEnv* env, jclass class, jlong memaddress, jlong defaultaddress)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_default((GtkWindow*)memaddress, (GtkWidget*)defaultaddress);
+}
+
+
+/**
+ * Present the window
+ * 
+ * @param  memaddress  The memory address of the component
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1present(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_present((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Present the window
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  timestamp   The timestamp of the user interaction which triggered this call
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1presentWithTime(JNIEnv* env, jclass class, jlong memaddress, jint timestamp)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_present_with_time((GtkWindow*)memaddress, (guint32)timestamp);
+}
+
+
+/**
+ * Sets the window's minimisation state
+ * 
+ * @param  value  The new state value
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setIconified(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  if (value)
+    gtk_window_iconify((GtkWindow*)memaddress);
+  else
+    gtk_window_deiconify((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's maximisation state
+ * 
+ * @param  value  The new state value
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setMaximised(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  if (value)
+    gtk_window_maximize((GtkWindow*)memaddress);
+  else
+    gtk_window_unmaximize((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's fullscreen state
+ * 
+ * @param  value  The new state value
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setFullscreen(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  if (value)
+    gtk_window_fullscreen((GtkWindow*)memaddress);
+  else
+    gtk_window_unfullscreen((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's stick state
+ * 
+ * @param  value  The new state value
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setStick(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  if (value)
+    gtk_window_stick((GtkWindow*)memaddress);
+  else
+    gtk_window_unstick((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's always on top state
+ * 
+ * @param  value  The new state value
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setKeepAbove(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_keep_above((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Sets the window's always on bottom state
+ * 
+ * @param  value  The new state value
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setKeepBelow(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_keep_below((GtkWindow*)memaddress, value);
+}
+
+
+/**
  * Sets the window's opacity
  * 
  * @param  memaddress  The memory address of the component

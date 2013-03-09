@@ -287,10 +287,10 @@ public class GWindow extends GComponent
     /**
      * Sets the window for which the window is transient
      * 
-     * @param  memaddress  The memory address of the component
-     * @param  parent      The memory address of the window for which the window is transient
+     * @param  memaddress     The memory address of the component
+     * @param  parentaddress  The memory address of the window for which the window is transient
      */
-    private static native void __setTransientFor(long memaddress, long parent);
+    private static native void __setTransientFor(long memaddress, long parentaddress);
     
     /**
      * Gets the window, if any, for which the window is transient
@@ -372,18 +372,18 @@ public class GWindow extends GComponent
     /**
      * Adds a mnemonic to this window
      * 
-     * @param  memaddress  The memory address of the component
-     * @param  keyvalue    The mnemonic
-     * @param  target      The memory address of the component that gets activated by the mnemonic
+     * @param  memaddress    The memory address of the component
+     * @param  keyvalue      The mnemonic
+     * @param  targetaddres  The memory address of the component that gets activated by the mnemonic
      */
     private static native void __addMnemonic(long memaddress, int keyvalue, long targetaddress);
     
     /**
      * Removes a mnemonic to this window
      * 
-     * @param  memaddress  The memory address of the component
-     * @param  keyvalue    The mnemonic
-     * @param  target      The memory address of the component that gets activated by the mnemonic
+     * @param  memaddress     The memory address of the component
+     * @param  keyvalue       The mnemonic
+     * @param  targetaddress  The memory address of the component that gets activated by the mnemonic
      */
     private static native void __removeMnemonic(long memaddress, int keyvalue, long targetaddress);
     
@@ -428,8 +428,8 @@ public class GWindow extends GComponent
     /**
      * Sets the currently focused component within the window
      * 
-     * @param  memaddress  The memory address of the component
-     * @param  focus       The memory address of the  currently focused component within the window
+     * @param  memaddress    The memory address of the component
+     * @param  focusaddress  The memory address of the currently focused component within the window
      */
     private static native void __setFocus(long memaddress, long focusaddress);
     
@@ -479,7 +479,7 @@ public class GWindow extends GComponent
      * Deiconifies and focuses the window, as well as put it at the top of the stack and puts the window on the current screen,
      * the actual effect depends on the user's platform, window manager and preferences
      * 
-     * @param  timestamp   The timestamp of the user interaction which triggered this call
+     * @param  timestamp  The timestamp of the user interaction which triggered this call
      */
     public void present(int timestamp)
     {
@@ -490,7 +490,7 @@ public class GWindow extends GComponent
      * Deiconifies and focuses the window, as well as put it at the top of the stack and puts the window on the current screen,
      * the actual effect depends on the user's platform, window manager and preferences
      * 
-     * @param  timestamp   The timestamp of the user interaction which triggered this call
+     * @param  timestamp  The timestamp of the user interaction which triggered this call
      */
     public void present(long timestamp)
     {
