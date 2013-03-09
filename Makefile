@@ -39,7 +39,8 @@ JAVA_TARGET=$(JAVA_SOURCE)
 GTK_CONFIG=$(PKG_CONFIG) gtk+-2.0
 
 # cc flags in groups
-C_WARNINGS=-W{all,extra} -pedantic
+C_WARNINGS=-W{all,extra}
+#-pedantic
 C_OPTIMISATION=$(OPTIMISATION)
 C_GTK_CFLAGS=$$($(GTK_CONFIG) --cflags)
 C_GTK_LDFLAGS=$$($(GTK_CONFIG) --libs)
@@ -49,12 +50,10 @@ CFLAGS=$(C_WARNINGS) $(C_OPTIMISATION) $(C_GTK_CFLAGS) -std=$(C_STD)
 CPPFLAGS=
 LDFLAGS=$(C_GTK_LDFLAGS)
 
-# cc flags, combined
-C_FLAGS=$(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
-
 # cc flags for jni
 JNI_INCLUDE=-I$${JAVA_HOME}/include
-JNI_C_FLAGS=$(JNI_INCLUDE) -fPIC -shared
+JNI_C_CFLAGS=$(JNI_INCLUDE) -fPIC
+JNI_C_LDFLAGS=-shared
 
 # javac flags
 JAVA_VERSION=-source $(JAVA_SOURCE) -target $(JAVA_TARGET)
@@ -96,16 +95,16 @@ h: $(JNI_H)
 
 
 # .o files
-obj/%.o: src/%.o
+obj/%.o: src/%.c
 	@mkdir -p "$$(echo "$@" | sed -e 's_\(.*\)/.*_\1_g')"
-	$(CC) $(C_FLAGS) $(JNI_C_FLAGS) "$<" -c -o "$@"
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(JNI_C_CFLAGS) "$<" -c -o "$@"
 
 # .so file
 $(LIB_JAVAGTK): $(C_OBJ)
 	@if [ ! "$@" = "$$(echo "$@" | sed -e s_/__g)" ]; then     \
 	     mkdir -p "$$(echo "$@" | sed -e 's_\(.*\)/.*_\1_')";  \
 	 fi
-	$(CC) $(C_FLAGS) $(JNI_C_FLAGS) $^ -o "$@"
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(JNI_C_CFLAGS) $(JNI_C_LDFLAGS) $^ -o "$@"
 
 # .class files
 bin/%.class: src/%.java
@@ -114,12 +113,13 @@ bin/%.class: src/%.java
 
 # .h files
 src/%.h: bin/%.class
-	@sum=$$(md5sum "$@" 2>/dev/null || echo); 									\
-	 $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";	\
-	 if [ "$$(wc -l "$@")" = 13 ]; then										\
-	     rm "$@";													\
-	 elif [ ! "$$(md5sum "$@" 2>/dev/null || echo)" = "$$sum" ]; then						\
-	     echo -en '\e[01;32m$@ has been updated\e[00m';								\
+	@sum=$$(md5sum "$@" 2>/dev/null || echo); 									  \
+	 echo $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";  \
+	 $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";	  \
+	 if [ "$$(wc -l "$@")" = 13 ]; then										  \
+	     rm "$@";													  \
+	 elif [ ! "$$(md5sum "$@" 2>/dev/null || echo)" = "$$sum" ]; then						  \
+	     echo -e '\e[01;32m$@ has been updated\e[00m';								  \
 	 fi
 
 
