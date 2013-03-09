@@ -34,3 +34,32 @@ JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1new(JNIEnv* env, jclass class)
   return (jlong)gtk_window_new(GTK_WINDOW_TOPLEVEL);
 }
 
+
+/**
+ * Set the window's opacity
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  opacity     The window's new opacity
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setOpacity(JNIEnv* env, jclass class, jlong memaddress, jdouble opacity)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_opacity((GtkWindow*)memaddress, opacity);
+}
+
+/**
+ * Get the window's opacity
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The window's opacity
+ */
+JNIEXPORT jdouble JNICALL Java_javagtk2_GWindow__1_1getOpacity(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_opacity((GtkWindow*)memaddress);
+}
+

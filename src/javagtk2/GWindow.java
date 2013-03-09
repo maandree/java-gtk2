@@ -41,5 +41,43 @@ public class GWindow extends GComponent
      */
     private static native long __new();
     
+    
+    
+    /**
+     * Set the window's opacity
+     * 
+     * @param  opacity  The window's new opacity
+     */
+    public void setOpacity(final double opacity)
+    {
+	__setOpacity(this.memaddress, opacity);
+    }
+    
+    /**
+     * Get the window's opacity
+     * 
+     * @return  The window's opacity
+     */
+    public double getOpacity()
+    {
+	return __getOpacity(this.memaddress);
+    }
+    
+    /**
+     * Set the window's opacity
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  opacity     The window's new opacity
+     */
+    private static native void __setOpacity(long memaddress, double opacity);
+    
+    /**
+     * Get the window's opacity
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              The window's opacity
+     */
+    private static native double __getOpacity(long memaddress);
+    
 }
 

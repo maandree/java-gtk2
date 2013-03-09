@@ -45,6 +45,7 @@ public class Test
 	GTK.initialise("java-gtk2.test", args);
 	
 	final GWindow window = new GWindow();
+	window.setOpacity(0.5);
 	window.setVisible(true);
 	
 	GTK.main();
