@@ -34,7 +34,7 @@ public class GWindow extends GComponent
      */
     public GWindow()
     {
-	this(null);
+	this(null, null, null);
     }
     
     /**
@@ -44,9 +44,36 @@ public class GWindow extends GComponent
      */
     public GWindow(final String title)
     {
+	this(title, null, null);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param  title  The window's title
+     * @param  role   The window's role
+     */
+    public GWindow(final String title, final String role)
+    {
+	this(title, role, null);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param  title  The window's title
+     * @param  role   The window's role
+     * @param  id     The window's startup identifier
+     */
+    public GWindow(final String title, final String role, final String id)
+    {
 	super(__new());
 	if (title != null)
 	    this.setTitle(title);
+	if (role != null)
+	    this.setRole(role);
+	if (id != null)
+	    this.setStartupID(id);
     }
     
     /**
@@ -62,6 +89,11 @@ public class GWindow extends GComponent
      * The default component
      */
     private WeakReference<GComponent> defaultComponent;
+    
+    /**
+     * Whether automatic startup notification is enabled
+     */
+    private static boolean autoStartupNotification = true;
     
     
     
@@ -302,6 +334,7 @@ public class GWindow extends GComponent
     
     
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-destroy-with-parent
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-destroy-with-parent
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-screen
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-screen
     
@@ -582,48 +615,285 @@ public class GWindow extends GComponent
     /**
      * Sets the window's minimisation state
      * 
-     * @param  value  The new state value
+     * @param  memaddress  The memory address of the component
+     * @param  value       The new state value
      */
     private static native void __setIconified(long memaddress, boolean value);
     
     /**
      * Sets the window's maximisation state
      * 
-     * @param  value  The new state value
+     * @param  memaddress  The memory address of the component
+     * @param  value       The new state value
      */
     private static native void __setMaximised(long memaddress, boolean value);
     
     /**
      * Sets the window's fullscreen state
      * 
-     * @param  value  The new state value
+     * @param  memaddress  The memory address of the component
+     * @param  value       The new state value
      */
     private static native void __setFullscreen(long memaddress, boolean value);
     
     /**
      * Sets the window's stick state
      * 
-     * @param  value  The new state value
+     * @param  memaddress  The memory address of the component
+     * @param  value       The new state value
      */
     private static native void __setStick(long memaddress, boolean value);
     
     /**
      * Sets the window's always on top state
      * 
-     * @param  value  The new state value
+     * @param  memaddress  The memory address of the component
+     * @param  value       The new state value
      */
     private static native void __setKeepAbove(long memaddress, boolean value);
     
     /**
      * Sets the window's always on bottom state
      * 
-     * @param  value  The new state value
+     * @param  memaddress  The memory address of the component
+     * @param  value       The new state value
      */
     private static native void __setKeepBelow(long memaddress, boolean value);
     
     
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-begin-resize-drag
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-begin-move-drag
+    
+    
+    /**
+     * Sets whether the window is decorated
+     * 
+     * @param  decorated  Whether the window should be decorated
+     */
+    private void setDecorated(boolean decorated);
+    
+    /**
+     * Gets whether the window is decorated
+     * 
+     * @return  Whether the window is decorated
+     */
+    private boolean isDecorated();
+    
+    /**
+     * Sets whether the window is decorated
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  decorated   Whether the window should be decorated
+     */
+    private static native void __setDecorated(long memaddress, boolean decorated);
+    
+    /**
+     * Gets whether the window is decorated
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              Whether the window is decorated
+     */
+    private static native boolean __getDecorated(long memaddress);
+    
+    
+    /**
+     * Sets whether the window has a close button
+     * 
+     * @param  value  Whether the window should have a close button
+     */
+    private void setHasCloseButton(boolean value);
+    
+    /**
+     * Gets whether the window has a close button
+     * 
+     * @return  Whether the window has a close button
+     */
+    private boolean hasCloseButton();
+    
+    /**
+     * Sets whether the window has a close button
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  value       Whether the window should have a close button
+     */
+    private static native void __setDeletable(long memaddress, boolean value);
+    
+    /**
+     * Gets whether the window has a close button
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              Whether the window has a close button
+     */
+    private static native boolean __getDeletable(long memaddress);
+    
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-frame-dimensions
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-frame-dimensions
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-has-frame
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-has-frame
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-mnemonic-modifier
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-mnemonic-modifier
+    
+    
+    /**
+     * Sets the window's role, which is used by the WM to identify the window upon session restoration
+     * 
+     * @param  role  The window's new role
+     */
+    public void setRole(final String role)
+    {
+	__setRole(this.memaddress, role);
+    }
+    
+    /**
+     * Gets the window's role
+     * 
+     * @return  The window's role
+     */
+    public String getRole()
+    {
+	return __getRole(this.memaddress);
+    }
+    
+    /**
+     * Sets the window's role
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  role        The window's new role
+     */
+    private static native void __setRole(long memaddress, String role);
+    
+    /**
+     * Gets the window's role
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              The window's role
+     */
+    private static native String __getRole(long memaddress);
+    
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-type-hint
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-type-hint
+    
+    
+    /* TODO
+      void gtk_window_set_skip_taskbar_hint(GtkWindow *window, gboolean setting);  Windows may set a hint asking the desktop environment not to display the window in the task bar.
+      void gtk_window_set_skip_pager_hint(GtkWindow *window, gboolean setting);    Windows may set a hint asking the desktop environment not to display the window in the pager.
+      void gtk_window_set_urgency_hint(GtkWindow *window, gboolean setting);       Windows may set a hint asking the desktop environment to draw the users attention to the window.
+      void gtk_window_set_accept_focus(GtkWindow *window, gboolean setting);       Windows may set a hint asking the desktop environment not to receive the input focus.
+      void gtk_window_set_focus_on_map(GtkWindow *window, gboolean setting);       Windows may set a hint asking the desktop environment not to receive the input focus when the window is mapped.
+     */
+    
+    
+    /**
+     * Sets the window's startup identifier, which is used by the WM to identify the window upon session restoration
+     * 
+     * @param  role  The window's startup identifier
+     */
+    public void setStartupID(final String id)
+    {
+	__setRole(this.memaddress, id);
+    }
+    
+    /**
+     * Sets the window's startup identifier
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  id          The window's new startup identifier
+     */
+    private static native void __setStartupID(long memaddress, String id);
+    
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-group
+    
+    
+    /**
+     * Set the location of the window
+     * 
+     * @param  location  The location
+     */
+    public void setLocation(final Point location)
+    {
+	__move(this.memaddress, location.x, location.y);
+    }
+    
+    /**
+     * Set the location of the window
+     * 
+     * @param  x  The position on the X-axis
+     * @param  y  The position on the Y-axis
+     */
+    public void setLocation(final int x, final int y);
+    {
+	__move(this.memaddress, x, y);
+    }
+    
+    /**
+     * Set the location of the window
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  x           The position on the X-axis
+     * @param  y           The position on the Y-axis
+     */
+    public static native void __move(long memaddress, int x, int y);
+    
+    
+    /**
+     * Set the size of the window
+     * 
+     * @param  size  The size of the window
+     */
+    public void setSize(final Dimension size)
+    {
+	__resize(this.memaddress, size.width, size.height);
+    }
+    
+    /**
+     * Set the size of the window
+     * 
+     * @parma  width   The width of the window
+     * @parma  height  The height of the window
+     */
+    public void setSize(final int width, final int height)
+    {
+	__resize(this.memaddress, width, height);
+    }
+    
+    /**
+     * Set the size of the window
+     * 
+     * @param  memaddress  The memory address of the component
+     * @parma  width       The width of the window
+     * @parma  height      The height of the window
+     */
+    public static native void __resize(long memaddress, int width, int height);
+    
+    
+    /**
+     * Set the location and size of the window
+     * 
+     * @param  geometry  The geometry string
+     * 
+     * @throws  IllegalArgumentException  If the geometry string is invalid
+     */
+    public void setGeometry(final String geometry) throws IllegalArgumentException
+    {
+	if (__parseGeometry(this.memaddress, geometry))
+	    throw new IllegalArgumentException("Invalid geometry string: " + geometry);
+    }
+    
+    /**
+     * Set the location and size of the window
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  geometry    The geometry string
+     */
+    public static native boolean __parseGeometry(long memaddress, String geometry);
+    
+    
+    // TODO (default) icon functions from http://developer.gimp.org/api/2.0/gtk/GtkWindow.html
     
     
     /**
@@ -661,6 +931,34 @@ public class GWindow extends GComponent
      * @return              The window's opacity
      */
     private static native double __getOpacity(long memaddress);
+    
+    
+    /**
+     * Sets whether automatic startup notification is enabled
+     * 
+     * @param  enabled  Whether automatic startup notification should be enabled
+     */
+    public static void setAutoStartupNotificationEnabled(final boolean enabled)
+    {
+	__setAutoStartupNotification(GWindow.autoStartupNotification = enabled);
+    }
+    
+    /**
+     * Gets whether automatic startup notification is enabled
+     * 
+     * @return  Whether automatic startup notification is enabled
+     */
+    public static boolean isAutoStartupNotificationEnabled()
+    {
+	return GWindow.autoStartupNotification;
+    }
+    
+    /**
+     * Sets whether automatic startup notification is enabled
+     * 
+     * @param  enabled  Whether automatic startup notification should be enabled
+     */
+    public static native void __setAutoStartupNotification(final boolean enabled);
     
 }
 

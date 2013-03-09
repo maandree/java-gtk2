@@ -341,7 +341,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1presentWithTime(JNIEnv* env, jc
 /**
  * Sets the window's minimisation state
  * 
- * @param  value  The new state value
+ * @param  memaddress  The memory address of the component
+ * @param  value       The new state value
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setIconified(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
 {
@@ -358,7 +359,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setIconified(JNIEnv* env, jclas
 /**
  * Sets the window's maximisation state
  * 
- * @param  value  The new state value
+ * @param  memaddress  The memory address of the component
+ * @param  value       The new state value
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setMaximised(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
 {
@@ -375,7 +377,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setMaximised(JNIEnv* env, jclas
 /**
  * Sets the window's fullscreen state
  * 
- * @param  value  The new state value
+ * @param  memaddress  The memory address of the component
+ * @param  value       The new state value
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setFullscreen(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
 {
@@ -392,7 +395,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setFullscreen(JNIEnv* env, jcla
 /**
  * Sets the window's stick state
  * 
- * @param  value  The new state value
+ * @param  memaddress  The memory address of the component
+ * @param  value       The new state value
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setStick(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
 {
@@ -409,7 +413,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setStick(JNIEnv* env, jclass cl
 /**
  * Sets the window's always on top state
  * 
- * @param  value  The new state value
+ * @param  memaddress  The memory address of the component
+ * @param  value       The new state value
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setKeepAbove(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
 {
@@ -423,7 +428,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setKeepAbove(JNIEnv* env, jclas
 /**
  * Sets the window's always on bottom state
  * 
- * @param  value  The new state value
+ * @param  memaddress  The memory address of the component
+ * @param  value       The new state value
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setKeepBelow(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
 {
