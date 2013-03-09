@@ -28,12 +28,12 @@
  * @param  visiblity   {@code true} for visible
  * @param  all         {@code true} for all
  */
-JNIEXPORT void JNICALL Java_javagtk2_GComponent__1_1setVisible(JNIEnv* env, jclass class, jlong memaddress, jboolean visiblity, jboolean all)
+JNIEXPORT void JNICALL Java_javagtk2_GComponent__1_1setVisible(JNIEnv* env, jclass class, jlong memaddress, jboolean visibility, jboolean all)
 {
   (void) env;
   (void) class;
   
-  Widget* widget = (Widget*)memaddress;
+  GtkWidget* widget = (GtkWidget*)memaddress;
   
   if (visibility)
     if (all)
@@ -58,6 +58,6 @@ JNIEXPORT void JNICALL Java_javagtk2_GComponent__1_1showNow(JNIEnv* env, jclass 
   (void) env;
   (void) class;
   
-  gtk_widget_show_now((Widget*)memaddress);
+  gtk_widget_show_now((GtkWidget*)memaddress);
 }
 

@@ -116,7 +116,7 @@ src/%.h: bin/%.class
 	@sum=$$(md5sum "$@" 2>/dev/null || echo); 									  \
 	 echo $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";  \
 	 $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";	  \
-	 if [ "$$(wc -l "$@")" = 13 ]; then										  \
+	 if [ "$$(wc -l "$@" | cut -d ' ' -f 1)" = 13 ]; then								  \
 	     rm "$@";													  \
 	 elif [ ! "$$(md5sum "$@" 2>/dev/null || echo)" = "$$sum" ]; then						  \
 	     echo -e '\e[01;32m$@ has been updated\e[00m';								  \

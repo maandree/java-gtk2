@@ -48,31 +48,31 @@ public abstract class GComponent
     /**
      * Set the component's visibility
      * 
-     * @param  visiblity  {@code true} for visible
+     * @param  visiiblity  {@code true} for visible
      */
-    public void setVisible(final boolean visiblity)
+    public void setVisible(final boolean visibility)
     {
-	this.setVisible(visiblity, false);
+	this.setVisible(visibility, false);
     }
     
     /**
      * Set the component's visibility
      * 
-     * @param  visiblity  {@code true} for visible
+     * @param  visibility  {@code true} for visible
      */
-    public void setVisible(final boolean visiblity, final boolean all)
+    public void setVisible(final boolean visibility, final boolean all)
     {
-	__setVisible(this.memaddress, visiblity, all);
+	__setVisible(this.memaddress, visibility, all);
     }
     
     /**
      * Show or hide the component
      * 
      * @param  memaddress  The memory address of the component
-     * @param  visiblity   {@code true} for visible
+     * @param  visibility  {@code true} for visible
      * @param  all         {@code true} for all
      */
-    private static native void __setVisible(long memaddress, boolean visiblity, boolean all);
+    private static native void __setVisible(long memaddress, boolean visibility, boolean all);
     
     
     /**

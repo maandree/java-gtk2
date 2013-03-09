@@ -31,7 +31,7 @@ public class GTK
      */
     private GTK()
     {
-	assert false : "You may not create instances of ee.gtk.GTK";
+	assert false : "You may not create instances of javagtk2.GTK";
     }
     
     
