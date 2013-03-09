@@ -36,6 +36,8 @@ public class GWindow extends GComponent
     
     /**
      * Native constructor
+     * 
+     * @return  Memory address
      */
     private static native long __new();
     
