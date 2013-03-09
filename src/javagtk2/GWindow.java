@@ -24,7 +24,7 @@ package javagtk2;
  * 
  * @author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
-public class GWindow
+public class GWindow extends GComponent
 {
     /**
      * Constructor
