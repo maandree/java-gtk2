@@ -54,7 +54,7 @@ public class GTK
 	if (GTK.isInitialised == false)
 	{   GTK.isInitialised = true;
 	    
-	    System.load((new java.io.File("./gtkbindings.so")).getAbsolutePath());
+	    System.load((new java.io.File("./java-gtk2.so")).getAbsolutePath());
 	    
 	    final String[] argv = new String[args.length + 1];
 	    argv[0] = exec;
