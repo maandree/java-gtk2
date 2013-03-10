@@ -27,7 +27,7 @@ package javagtk2.consts;
 public class CornerType
 {
     /**
-     * Place the scrollbars on the right and bottom of the component (default behaviour).
+     * Place the scrollbars on the right and bottom of the component (default behaviour)
      */
     public static final int TOP_LEFT = 0;
     
