@@ -27,7 +27,7 @@ import java.lang.ref.*;
  * 
  * @author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
-public class GWindow extends GComponent
+public class GWindow extends GBin
 {
     /**
      * Constructor
