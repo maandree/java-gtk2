@@ -257,9 +257,9 @@ public class GWindow extends GComponent
      * 
      * @param  size  The window's new preferred size, {@code -1} dimensions are unsets
      */
-    private void setPreferredSize(final Dimension size)
+    public void setPreferredSize(final Dimension size)
     {
-	setPreferredSize(size.width, size.height);
+	__setDefaultSize(this.memaddress, size.width, size.height);
     }
     
     /**
@@ -268,9 +268,22 @@ public class GWindow extends GComponent
      * @param  width   The window's new preferred width, {@code -1} for unset
      * @param  height  The window's new preferred height, {@code -1} for unset
      */
-    private void setPreferredSize(final int width, final int height)
+    public void setPreferredSize(final int width, final int height)
     {
 	__setDefaultSize(this.memaddress, width, height);
+    }
+    
+    /**
+     * Gets the window's preferred size
+     * 
+     * @return  The window's preferred size
+     */
+    public Dimension getPreferredSize()
+    {
+	final long s = __getDefaultSize(this.memaddress);
+	int w = (int)(s & 0xFFFFffffL);
+	int h = (int)(s >> 32L);
+	return new Dimension(w, h);
     }
     
     /**
@@ -281,6 +294,14 @@ public class GWindow extends GComponent
      * @param  height      The window's new preferred height
      */
     private static native void __setDefaultSize(long memaddress, int width, int height);
+    
+    /**
+     * Gets the window's preferred size
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              The window's preferred size in the form <code>height &lt;&lt; 32 | width</code>
+     */
+    private static native long __getDefaultSize(long memaddress);
     
     
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-geometry-hints
@@ -670,14 +691,20 @@ public class GWindow extends GComponent
      * 
      * @param  decorated  Whether the window should be decorated
      */
-    private void setDecorated(boolean decorated);
+    public void setDecorated(boolean decorated)
+    {
+	__setDecorated(this.memaddress, decorated);
+    }
     
     /**
      * Gets whether the window is decorated
      * 
      * @return  Whether the window is decorated
      */
-    private boolean isDecorated();
+    public boolean isDecorated()
+    {
+	return __getDecorated(this.memaddress);
+    }
     
     /**
      * Sets whether the window is decorated
@@ -701,14 +728,20 @@ public class GWindow extends GComponent
      * 
      * @param  value  Whether the window should have a close button
      */
-    private void setHasCloseButton(boolean value);
+    public void setHasCloseButton(boolean value)
+    {
+	__setDeletable(this.memaddress, value);
+    }
     
     /**
      * Gets whether the window has a close button
      * 
      * @return  Whether the window has a close button
      */
-    private boolean hasCloseButton();
+    public boolean hasCloseButton()
+    {
+	return __getDeletable(this.memaddress);
+    }
     
     /**
      * Sets whether the window has a close button
@@ -778,13 +811,189 @@ public class GWindow extends GComponent
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-type-hint
     
     
-    /* TODO
-      void gtk_window_set_skip_taskbar_hint(GtkWindow *window, gboolean setting);  Windows may set a hint asking the desktop environment not to display the window in the task bar.
-      void gtk_window_set_skip_pager_hint(GtkWindow *window, gboolean setting);    Windows may set a hint asking the desktop environment not to display the window in the pager.
-      void gtk_window_set_urgency_hint(GtkWindow *window, gboolean setting);       Windows may set a hint asking the desktop environment to draw the users attention to the window.
-      void gtk_window_set_accept_focus(GtkWindow *window, gboolean setting);       Windows may set a hint asking the desktop environment not to receive the input focus.
-      void gtk_window_set_focus_on_map(GtkWindow *window, gboolean setting);       Windows may set a hint asking the desktop environment not to receive the input focus when the window is mapped.
+    /**
+     * Sets whether the window is shown in the taskbar
+     * 
+     * @param  value  Whether the window should be shown in the taskbar
      */
+    public void setShowInTaskbar(final boolean value)
+    {
+	__setSkipTaskbarHint(this.memaddress, value == false);
+    }
+    
+    /**
+     * Gets whether the window is shown in the taskbar
+     * 
+     * @return  Whether the window is shown in the taskbar
+     */
+    public boolean getShowInTaskbar()
+    {
+	return __getSkipTaskbarHint(this.memaddress) == false;
+    }
+    
+    /**
+     * Sets whether the window is shown in the taskbar
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  value       Whether the window should be shown in the taskbar
+     */
+    private static native void __setSkipTaskbarHint(long memaddress, boolean value);
+    
+    /**
+     * Gets whether the window is shown in the taskbar
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return               Whether the window is shown in the taskbar
+     */
+    private static native boolean __getSkipTaskbarHint(long memaddress);
+    
+    
+    /**
+     * Sets whether the window is shown in the pager
+     * 
+     * @param  value  Whether the window should be shown in the pager
+     */
+    public void setShowInPager(final boolean value)
+    {
+	__setSkipPagerHint(this.memaddress, value == false);
+    }
+    
+    /**
+     * Gets whether the window is shown in the pager
+     * 
+     * @return  Whether the window is shown in the pager
+     */
+    public boolean getShowInPager()
+    {
+	return __getSkipPagerHint(this.memaddress) == false;
+    }
+    
+    /**
+     * Sets whether the window is shown in the pager
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  value       Whether the window should be shown in the pager
+     */
+    private static native void __setSkipPagerHint(long memaddress, boolean value);
+    
+    /**
+     * Gets whether the window is shown in the pager
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              Whether the window is shown in the pager
+     */
+    private static native boolean __getSkipPagerHint(long memaddress);
+    
+    
+    /**
+     * Sets whether to draw the user's attention to the window
+     * 
+     * @param  Whether to draw the user's attention to the window
+     */
+    public void setUrgencyHint(final boolean value)
+    {
+	__setUrgencyHint(this.memaddress, value);
+    }
+    
+    /**
+     * Gets whether to draw the user's attention to the window
+     * 
+     * @return  Whether to draw the user's attention to the window
+     */
+    public boolean getUrgencyHint()
+    {
+	return __getUrgencyHint(this.memaddress);
+    }
+    
+    /**
+     * Sets whether to draw the user's attention to the window
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  value       Whether to draw the user's attention to the window
+     */
+    private static native void __setUrgencyHint(long memaddress, boolean value);
+    
+    /**
+     * Gets whether to draw the user's attention to the window
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              Whether to draw the user's attention to the window
+     */
+    private static native boolean __getUrgencyHint(long memaddress);
+    
+    
+    /**
+     * Sets whether to receive the input focus
+     * 
+     * @param  value  Whether to receive the input focus
+     */
+    public void setAcceptFocus(final boolean value)
+    {
+	__setAcceptFocus(this.memaddress, value);
+    }
+    
+    /**
+     * Gets whether to receive the input focus
+     * 
+     * @return  Whether to receive the input focus
+     */
+    public boolean getAcceptFocus()
+    {
+	return __getAcceptFocus(this.memaddress);
+    }
+    
+    /**
+     * Sets whether to receive the input focus
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  value       Whether to receive the input focus
+     */
+    private static native void __setAcceptFocus(long memaddress, boolean value);
+    
+    /**
+     * Gets whether to receive the input focus
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              Whether to receive the input focus
+     */
+    private static native boolean __getAcceptFocus(long memaddress);
+    
+    
+    /**
+     * Sets whether to receive the input focus on map
+     * 
+     * @param  value  Whether to receive the input focus on map
+     */
+    public void setFocusOnMap(final boolean value)
+    {
+	__setFocusOnMap(this.memaddress, value);
+    }
+    
+    /**
+     * Gets whether to receive the input focus on map
+     * 
+     * @return  Whether to receive the input focus on map
+     */
+    public boolean getFocusOnMap()
+    {
+	return __getFocusOnMap(this.memaddress);
+    }
+    
+    /**
+     * Sets whether to receive the input focus on map
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  value       Whether to receive the input focus on map
+     */
+    private static native void __setFocusOnMap(long memaddress, boolean value);
+    
+    /**
+     * Gets whether to receive the input focus on map
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              Whether to receive the input focus on map
+     */
+    private static native boolean __getFocusOnMap(long memaddress);
     
     
     /**
@@ -810,7 +1019,7 @@ public class GWindow extends GComponent
     
     
     /**
-     * Set the location of the window
+     * Sets the location of the window
      * 
      * @param  location  The location
      */
@@ -820,28 +1029,47 @@ public class GWindow extends GComponent
     }
     
     /**
-     * Set the location of the window
+     * Sets the location of the window
      * 
      * @param  x  The position on the X-axis
      * @param  y  The position on the Y-axis
      */
-    public void setLocation(final int x, final int y);
+    public void setLocation(final int x, final int y)
     {
 	__move(this.memaddress, x, y);
     }
     
     /**
-     * Set the location of the window
+     * Gets the location of the window
+     * 
+     * @return  THe location of the window, do not count on it being exact
+     */
+    public Point getLocation()
+    {
+	long p = __getPosition(this.memaddress);
+	return new Point((int)(p & 0xFFFFffff), (int)(p >> 32));
+    }
+    
+    /**
+     * Sets the location of the window
      * 
      * @param  memaddress  The memory address of the component
      * @param  x           The position on the X-axis
      * @param  y           The position on the Y-axis
      */
-    public static native void __move(long memaddress, int x, int y);
+    private static native void __move(long memaddress, int x, int y);
+    
+    /**
+     * Gets the location of the window
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              The location of the window on the form <code>y &lt;&lt; 32 | x</code>
+     */
+    private static native long __getPosition(long memaddress);
     
     
     /**
-     * Set the size of the window
+     * Sets the size of the window
      * 
      * @param  size  The size of the window
      */
@@ -851,7 +1079,7 @@ public class GWindow extends GComponent
     }
     
     /**
-     * Set the size of the window
+     * Sets the size of the window
      * 
      * @parma  width   The width of the window
      * @parma  height  The height of the window
@@ -862,17 +1090,38 @@ public class GWindow extends GComponent
     }
     
     /**
-     * Set the size of the window
+     * Gets the window's preferred size
+     * 
+     * @return  The window's preferred size, this excludes the window decoration
+     */
+    public Dimension getSize()
+    {
+	final long s = __getSize(this.memaddress);
+	int w = (int)(s & 0xFFFFffffL);
+	int h = (int)(s >> 32L);
+	return new Dimension(w, h);
+    }
+    
+    /**
+     * Sets the size of the window
      * 
      * @param  memaddress  The memory address of the component
      * @parma  width       The width of the window
      * @parma  height      The height of the window
      */
-    public static native void __resize(long memaddress, int width, int height);
+    private static native void __resize(long memaddress, int width, int height);
+    
+    /**
+     * Gets the window's size
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              The window's size in the form <code>height &lt;&lt; 32 | width</code>
+     */
+    private static native long __getSize(long memaddress);
     
     
     /**
-     * Set the location and size of the window
+     * Sets the location and size of the window
      * 
      * @param  geometry  The geometry string
      * 
@@ -885,15 +1134,100 @@ public class GWindow extends GComponent
     }
     
     /**
-     * Set the location and size of the window
+     * Sets the location and size of the window
      * 
      * @param  memaddress  The memory address of the component
      * @param  geometry    The geometry string
      */
-    public static native boolean __parseGeometry(long memaddress, String geometry);
+    private static native boolean __parseGeometry(long memaddress, String geometry);
     
     
-    // TODO (default) icon functions from http://developer.gimp.org/api/2.0/gtk/GtkWindow.html
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-icon
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-icon
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-icon-list
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-icon-list
+    
+    
+    /**
+     * Sets the window's icon by themed name
+     * 
+     * @param  name  The themed name of the window's icon
+     */
+    public void setIcon(final String name)
+    {
+	__setIconName(this.memaddress, name);
+    }
+    
+    /**
+     * Gets the window's icon by themed name
+     * 
+     * @return  The themed name of the window's icon
+     */
+    public String getIcon()
+    {
+	return __getIconName(this.memaddress);
+    }
+    
+    /**
+     * Sets the window's icon by themed name
+     * 
+     * @param  memaddress  The memory address of the component
+     * @param  name        The themed name of the window's icon
+     */
+    private static native void __setIconName(long memaddress, String name);
+    
+    /**
+     * Gets the window's icon by themed name
+     * 
+     * @param   memaddress  The memory address of the component
+     * @return              The themed name of the window's icon
+     */
+    private static native String __getIconName(long memaddress);
+    
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-icon-from-file
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-default-icon
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-default-icon
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-default-icon-list
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-get-default-icon-list
+    
+    
+    /**
+     * Sets the default icon by themed name
+     * 
+     * @param  name  The themed name of the default icon
+     */
+    public void setDefaultIcon(final String name)
+    {
+	__setDefaultIconName(name);
+    }
+    
+    /**
+     * Gets the default icon by themed name
+     * 
+     * @return  The themed name of the default icon
+     */
+    public String getDefaultIcon()
+    {
+	return __getDefaultIconName();
+    }
+    
+    /**
+     * Sets the default icon by themed name
+     * 
+     * @param  name  The themed name of the default icon
+     */
+    private static native void __setDefaultIconName(String name);
+    
+    /**
+     * Gets the default icon by themed name
+     * 
+     * @return  The themed name of the default icon
+     */
+    private static native String __getDefaultIconName();
+    
+    
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkWindow.html#gtk-window-set-default-icon-from-file
     
     
     /**
@@ -958,7 +1292,7 @@ public class GWindow extends GComponent
      * 
      * @param  enabled  Whether automatic startup notification should be enabled
      */
-    public static native void __setAutoStartupNotification(final boolean enabled);
+    private static native void __setAutoStartupNotification(final boolean enabled);
     
 }
 

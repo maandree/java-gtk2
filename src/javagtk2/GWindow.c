@@ -43,9 +43,11 @@ JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1new(JNIEnv* env, jclass class)
  */
 JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setTitle(JNIEnv* env, jclass class, jlong memaddress, jstring title)
 {
+  const char* _title;
+  
   (void) class;
   
-  const char* _title = (*env)->GetStringUTFChars(env, title, 0);
+  _title = (*env)->GetStringUTFChars(env, title, 0);
   gtk_window_set_title((GtkWindow*)memaddress, _title);
 }
 
@@ -58,10 +60,12 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setTitle(JNIEnv* env, jclass cl
  */
 JNIEXPORT jstring JNICALL Java_javagtk2_GWindow__1_1getTitle(JNIEnv* env, jclass class, jlong memaddress)
 {
+  const char* title;
+  
   (void) env;
   (void) class;
   
-  const char* title = gtk_window_get_title((GtkWindow*)memaddress);
+  title = gtk_window_get_title((GtkWindow*)memaddress);
   return (*env)->NewStringUTF(env, title);
 }
 
@@ -169,6 +173,27 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setDefaultSize(JNIEnv* env, jcl
   (void) class;
   
   gtk_window_set_default_size((GtkWindow*)memaddress, width, height);
+}
+
+
+/**
+ * Gets the window's preferred size
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The window's preferred size in the form <code>height &lt;&lt; 32 | width</code>
+ */
+JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1getDefaultSize(JNIEnv* env, jclass class, jlong memaddress)
+{
+  int width = 0, height = 0;
+  long _w, _h;
+  
+  (void) env;
+  (void) class;
+  
+  gtk_window_get_default_size((GtkWindow*)memaddress, &width, &height);
+  _w = (long)(unsigned int)width;
+  _h = (long)(unsigned int)height;
+  return (_h << 32) | _w;
 }
 
 
@@ -441,6 +466,427 @@ JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setKeepBelow(JNIEnv* env, jclas
 
 
 /**
+ * Sets whether the window is decorated
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  decorated   Whether the window should be decorated
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setDecorated(JNIEnv* env, jclass class, jlong memaddress, jboolean decorated)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_decorated((GtkWindow*)memaddress, decorated);
+}
+
+
+/**
+ * Gets whether the window is decorated
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the window is decorated
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getDecorated(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_decorated((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether the window has a close button
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  value       Whether the window should have a close button
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setDeletable(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_deletable((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Gets whether the window has a close button
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the window has a close button
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getDeletable(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_deletable((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's role
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  role        The window's new role
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setRole(JNIEnv* env, jclass class, jlong memaddress, jstring role)
+{
+  const char* _role;
+  
+  (void) class;
+  
+  _role = (*env)->GetStringUTFChars(env, role, 0);
+  gtk_window_set_role((GtkWindow*)memaddress, _role);
+}
+
+
+/**
+ * Gets the window's role
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The window's role
+ */
+JNIEXPORT jstring JNICALL Java_javagtk2_GWindow__1_1getRole(JNIEnv* env, jclass class, jlong memaddress)
+{
+  const char* role;
+  
+  (void) env;
+  (void) class;
+  
+  role = gtk_window_get_role((GtkWindow*)memaddress);
+  return (*env)->NewStringUTF(env, role);
+}
+
+
+/**
+ * Sets whether the window is shown in the taskbar
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  value       Whether the window should be shown in the taskbar
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setSkipTaskbarHint(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_skip_taskbar_hint((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Gets whether the window is shown in the taskbar
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return               Whether the window is shown in the taskbar
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getSkipTaskbarHint(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_skip_taskbar_hint((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether the window is shown in the pager
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  value       Whether the window should be shown in the pager
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setSkipPagerHint(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_skip_pager_hint((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Gets whether the window is shown in the pager
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether the window is shown in the pager
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getSkipPagerHint(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_skip_pager_hint((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether to draw the user's attention to the window
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  value       Whether to draw the user's attention to the window
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setUrgencyHint(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_urgency_hint((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Gets whether to draw the user's attention to the window
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether to draw the user's attention to the window
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getUrgencyHint(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_urgency_hint((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether to receive the input focus
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  value       Whether to receive the input focus
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setAcceptFocus(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_accept_focus((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Gets whether to receive the input focus
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether to receive the input focus
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getAcceptFocus(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_accept_focus((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether to receive the input focus on map
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  value       Whether to receive the input focus on map
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setFocusOnMap(JNIEnv* env, jclass class, jlong memaddress, jboolean value)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_focus_on_map((GtkWindow*)memaddress, value);
+}
+
+
+/**
+ * Gets whether to receive the input focus on map
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              Whether to receive the input focus on map
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1getFocusOnMap(JNIEnv* env, jclass class, jlong memaddress)
+{
+  (void) env;
+  (void) class;
+  
+  return gtk_window_get_focus_on_map((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets the window's startup identifier
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  id          The window's new startup identifier
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setStartupID(JNIEnv* env, jclass class, jlong memaddress, jstring id)
+{
+  const char* _id;
+  
+  (void) class;
+  
+  _id = (*env)->GetStringUTFChars(env, id, 0);
+  gtk_window_set_startup_id((GtkWindow*)memaddress, _id);
+}
+
+
+/**
+ * Sets the location of the window
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  x           The position on the X-axis
+ * @param  y           The position on the Y-axis
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1move(JNIEnv* env, jclass class, jlong memaddress, jint x, jint y)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_move((GtkWindow*)memaddress, x, y);
+}
+
+
+/**
+ * Gets the location of the window
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The location of the window on the form <code>y &lt;&lt; 32 | x</code>
+ */
+JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1getPosition(JNIEnv* env, jclass class, jlong memaddress)
+{
+  int x = 0, y = 0;
+  long _x, _y;
+  
+  (void) env;
+  (void) class;
+  
+  gtk_window_get_position((GtkWindow*)memaddress, &x, &y);
+  _x = (long)(unsigned int)x;
+  _y = (long)(unsigned int)y;
+  return (_y << 32L) | _x;
+}
+
+
+/**
+ * Sets the size of the window
+ * 
+ * @param  memaddress  The memory address of the component
+ * @parma  width       The width of the window
+ * @parma  height      The height of the window
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1resize(JNIEnv* env, jclass class, jlong memaddress, jint width, jint height)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_resize((GtkWindow*)memaddress, width, height);
+}
+
+
+/**
+ * Gets the window's size
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The window's size in the form <code>height &lt;&lt; 32 | width</code>
+ */
+JNIEXPORT jlong JNICALL Java_javagtk2_GWindow__1_1getSize(JNIEnv* env, jclass class, jlong memaddress)
+{
+  int width = 0, height = 0;
+  long _w, _h;
+  
+  (void) env;
+  (void) class;
+  
+  gtk_window_get_size((GtkWindow*)memaddress, &width, &height);
+  _w = (long)(unsigned int)width;
+  _h = (long)(unsigned int)height;
+  return (_h << 32) | _w;
+}
+
+
+/**
+ * Sets the location and size of the window
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  geometry    The geometry string
+ */
+JNIEXPORT jboolean JNICALL Java_javagtk2_GWindow__1_1parseGeometry(JNIEnv* env, jclass class, jlong memaddress, jstring geometry)
+{
+  const char* _geometry;
+  
+  (void) class;
+  
+  _geometry = (*env)->GetStringUTFChars(env, geometry, 0);
+  return gtk_window_parse_geometry((GtkWindow*)memaddress, _geometry);
+}
+
+
+/**
+ * Sets the window's icon by themed name
+ * 
+ * @param  memaddress  The memory address of the component
+ * @param  name        The themed name of the window's icon
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setIconName(JNIEnv* env, jclass class, jlong memaddress, jstring name)
+{
+  const char* _name;
+  
+  (void) class;
+  
+  _name = (*env)->GetStringUTFChars(env, name, 0);
+  gtk_window_set_icon_name((GtkWindow*)memaddress, _name);
+}
+
+
+/**
+ * Gets the window's icon by themed name
+ * 
+ * @param   memaddress  The memory address of the component
+ * @return              The themed name of the window's icon
+ */
+JNIEXPORT jstring JNICALL Java_javagtk2_GWindow__1_1getIconName(JNIEnv* env, jclass class, jlong memaddress)
+{
+  const char* name;
+  
+  (void) env;
+  (void) class;
+  
+  name = gtk_window_get_icon_name((GtkWindow*)memaddress);
+  return (*env)->NewStringUTF(env, name);
+}
+
+
+/**
+ * Sets the default icon by themed name
+ * 
+ * @param  name  The themed name of the default icon
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setDefaultIconName(JNIEnv* env, jclass class, jstring name)
+{
+  const char* _name;
+  
+  (void) class;
+  
+  _name = (*env)->GetStringUTFChars(env, name, 0);
+  gtk_window_set_default_icon_name(_name);
+}
+
+
+/**
+ * Gets the default icon by themed name
+ * 
+ * @return  The themed name of the default icon
+ */
+JNIEXPORT jstring JNICALL Java_javagtk2_GWindow__1_1getDefaultIconName(JNIEnv* env, jclass class)
+{
+  const char* name;
+  
+  (void) env;
+  (void) class;
+  
+  name = gtk_window_get_default_icon_name();
+  return (*env)->NewStringUTF(env, name);
+}
+
+
+/**
  * Sets the window's opacity
  * 
  * @param  memaddress  The memory address of the component
@@ -467,5 +913,19 @@ JNIEXPORT jdouble JNICALL Java_javagtk2_GWindow__1_1getOpacity(JNIEnv* env, jcla
   (void) class;
   
   return gtk_window_get_opacity((GtkWindow*)memaddress);
+}
+
+
+/**
+ * Sets whether automatic startup notification is enabled
+ * 
+ * @param  enabled  Whether automatic startup notification should be enabled
+ */
+JNIEXPORT void JNICALL Java_javagtk2_GWindow__1_1setAutoStartupNotification(JNIEnv* env, jclass class, jboolean enabled)
+{
+  (void) env;
+  (void) class;
+  
+  gtk_window_set_auto_startup_notification(enabled);
 }
 
