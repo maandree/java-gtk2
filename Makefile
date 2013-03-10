@@ -86,7 +86,7 @@ JAVA_GEN_CONST_SRC=$(shell cat "$(GEN_CONST)" | grep '^enum' | sed -e 's/$$/\.ja
 JAVA_GEN_CONST_CLASS=$(shell cat "$(GEN_CONST)" | grep '^enum' | sed -e 's/$$/\.class/g' -e 's/^enum /bin\/javagtk2\/consts\//g')
 
 # h files
-JNI_H=$(shell find src | grep '\.java$$' | sed -e 's/\.java$$/\.h/g')
+JNI_H=$(shell find src | grep -v '^src/.*/consts/.*\.java$$' | grep '\.java$$' | sed -e 's/\.java$$/\.h/g')
 
 # so files
 LIB_PREFIX=
