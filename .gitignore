@@ -15,4 +15,5 @@ _/
 *.gch
 
 [A-Z]*.h
+/src/javagtk2/consts/*.java
 

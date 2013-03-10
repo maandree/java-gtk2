@@ -1,0 +1,406 @@
+/**
+ * java-gtk2 – GTK+ 2.0 bindings for Java
+ * 
+ * Copyright © 2013  Mattias Andrée (maandree@member.fsf.org)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package javagtk2.consts;
+
+@author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
+
+
+enum AcceleratorFlags
+
+VISIBLE = 1 << 0
+LOCKED = 1 << 1
+MASK = 0x07
+
+
+enum AnchorType
+
+CENTER
+NORTH
+NORTH_WEST
+NORTH_EAST
+SOUTH
+SOUTH_WEST
+SOUTH_EAST
+WEST
+EAST
+
+
+#Used to indicate the direction in which an arrow should point
+enum ArrowType
+
+#Represents an upward pointing arrow
+UP
+#Represents a downward pointing arrow
+DOWN
+#Represents a left pointing arrow
+LEFT
+#Represents a right pointing arrow
+RIGHT
+#No arrow
+NONE
+
+
+#Denotes the expansion properties that a widget will have when it, or its parent, is resized
+enum AttachOptions
+
+#Default packing
+DEFAULT_STYLE
+#Buttons are evenly spread across the box
+SPREAD
+#Buttons are placed at the edges of the box
+EDGE
+#Buttons are grouped towards the start of the box
+START
+#Buttons are grouped towards the end of the box
+END
+#Buttons are centered in the box
+CENTER
+
+
+#Specifies which corner a child widget should be placed in when packed into a scrolld window
+enum CornerType
+
+#Place the scrollbars on the right and bottom of the widget (default behaviour)
+TOP_LEFT
+#Place the scrollbars on the top and right of the widget
+BOTTOM_LEFT
+#Place the scrollbars on the left and bottom of the widget
+TOP_RIGHT
+#Place the scrollbars on the top and left of the widget
+BOTTOM_RIGHT
+
+
+enum CurveType
+
+#Linear interpolation
+LINEAR
+#Spline interpolation
+SPLINE
+#Free form curve
+FREE
+
+
+enum DeleteType
+
+CHARS
+WORD_ENDS
+WORDS
+DISPLAY_LINES
+DISPLAY_LINE_ENDS
+PARAGRAPH_ENDS
+PARAGRAPHS
+WHITESPACE
+
+
+enum DirectionType
+
+TAB_FORWARD
+TAB_BACKWARD
+UP
+DOWN
+LEFT
+RIGHT
+
+
+#Used to specify the style of the expanders drawn by a tree view
+enum ExpanderStyle
+
+#The style used for a collapsed subtree
+COLLAPSED
+#Intermediate style used during animation
+SEMI_COLLAPSED
+#Intermediate style used during animation
+SEMI_EXPANDED
+#The style used for an expanded subtree
+EXPANDED
+
+
+enum IMPreeditStyle
+
+NOTHING
+CALLBACK
+NONE
+
+
+enum IMStatusStyle
+
+NOTHING
+CALLBACK
+NONE
+
+
+#Used for justifying the text inside a label component
+enum Justification
+
+#The text is placed at the left edge of the label
+LEFT
+#The text is placed at the right edge of the label
+RIGHT
+#The text is placed in the center of the label
+CENTER
+#The text is placed is distributed across the label
+FILL
+
+
+#sed to indicate which metric is used by a ruler
+enum MetricType
+
+#Pixels
+PIXELS
+#Inches
+INCHES
+#Centimeters
+CENTIMETERS
+
+
+enum MovementStep
+
+#Move by forw/back graphemes
+LOGICAL_POSITIONS
+#Move by left/right graphemes
+VISUAL_POSITIONS
+#Move by forward/back words
+WORDS
+#Move up/down lines (wrapped lines)
+DISPLAY_LINES
+#Move up/down lines (wrapped lines)
+DISPLAY_LINE_ENDS
+#Move up/down paragraphs (newline-ended lines)
+PARAGRAPHS
+#Move to either end of a paragraph
+PARAGRAPH_ENDS
+#Move by pages
+PAGES
+#Move to ends of the buffer
+BUFFER_ENDS
+#Move horizontally by pages
+HORIZONTAL_PAGES
+
+
+#Represents the orientation of components which can be switched between horizontal and vertical orientation on the fly
+enum Orientation
+
+#The component is in horizontal orientation
+HORIZONTAL
+#The component is in vertical orientation
+VERTICAL
+
+
+#Represents the packing location box children
+enum PackType
+
+#The child is packed into the start of the box
+START
+#The child is packed into the end of the box
+END
+
+
+enum PathPriorityType
+
+LOWEST = 0
+GTK = 4
+APPLICATION = 8
+THEME = 10
+RC = 12
+HIGHEST = 15
+
+
+enum PathType
+
+COMPONENT
+COMPONENT_CLASS
+CLASS
+
+
+#Determines when a scroll bar will be visible
+enum PolicyType
+
+#The scrollbar is always visible
+ALWAYS
+#The scrollbar will appear and disappear as necessary
+AUTOMATIC
+#The scrollbar will never appear
+NEVER
+
+
+#Describes which edge of a component a certain feature is positioned at
+enum PositionType
+
+#The feature is at the left edge
+LEFT
+#The feature is at the right edge
+RIGHT
+#The feature is at the top edge
+TOP
+#The feature is at the bottom edge
+BOTTOM
+
+
+#Indicated the relief to be drawn around a button
+enum ReliefStyle
+
+#Draw a normal relief
+NORMAL
+#A half relief
+HALF
+#No relief
+NONE
+
+
+enum ResizeMode
+
+#Pass resize request to the parent
+PARENT
+#Queue resizes on this component
+QUEUE
+
+
+enum ScrollStep
+
+STEPS
+PAGES
+ENDS
+HORIZONTAL_STEPS
+HORIZONTAL_PAGES
+HORIZONTAL_ENDS
+
+
+enum ScrollType
+
+NONE
+JUMP
+STEP_BACKWARD
+STEP_FORWARD
+PAGE_BACKWARD
+PAGE_FORWARD
+STEP_UP
+STEP_DOWN
+PAGE_UP
+PAGE_DOWN
+STEP_LEFT
+STEP_RIGHT
+PAGE_LEFT
+PAGE_RIGHT
+START
+END
+
+
+#Used to control what selections users are allowed to make
+enum SelectionMode
+
+#No selection is possible
+NONE
+#Zero or one element may be selected
+SINGLE
+#Exactly one element is selected
+BROWSE
+#Any number of elements may be selected
+MULTIPLE
+
+
+#Used to change the appearance of an outline typically provided by a frame
+enum ShadowType
+
+#No outline
+NONE
+#The outline is bevelled inwards
+IN
+#The outline is bevelled outwards like a button
+OUT
+#The outline has a sunken 3d appearance
+ETCHED_IN
+#The outline has a raised 3d appearance
+ETCHED_OUT
+
+
+#This type indicates the current state of a component; the state determines how the component is drawn
+enum StateType
+
+#State during normal operation
+NORMAL
+#State of a currently active component, such as a depressed button
+ACTIVE
+#State indicating that the mouse pointer is over the component and the component will respond to mouse clicks
+PRELIGHT
+#State of a selected item, such the selected row in a list
+SELECTED
+#State indicating that the component is unresponsive to user actions
+INSENSITIVE
+
+
+#Used to customise the appearance of a toolbar. Note that setting the toolbar style overrides the user's preferences for the default toolbar style. Note that if the button has only a label set and {@link #ICONS} is used, the label will be visible, and vice versa.
+enum ToolbarStyle
+
+#Buttons display only icons in the toolbar
+ICONS
+#Buttons display only text labels in the toolbar
+TEXT
+#Buttons display text and icons in the toolbar
+BOTH
+#Buttons display icons and text alongside each other, rather than vertically stacked
+BOTH_HORIZONTAL
+
+
+enum UpdateType
+
+CONTINUOUS
+DISCONTINUOUS
+DELAYED
+
+
+#Window placement can be influenced using this enumeration
+enum WindowPosition
+
+#No influence is made on placement
+NONE
+#Windows should be placed in the center of the screen
+CENTER
+#Windows should be placed at the current mouse position
+MOUSE
+#Keep window centered as it changes size, etc
+CENTER_ALWAYS
+#Center the window on its transient parent
+CENTER_ON_PARENT
+
+
+#Determines the direction of a sort
+enum SortType
+
+#Sorting is in ascending order
+ASCENDING
+#Sorting is in descending order
+DESCENDING
+
+
+#Gives an indication why a drag operation failed
+enum DragResult
+
+#The drag operation was successful
+SUCCESS
+#No suitable drag target
+NO_TARGET
+#The user cancelled the drag operation
+USER_CANCELLED
+#The drag operation timed out
+TIMEOUT_EXPIRED
+#The pointer or keyboard grab used for the drag operation was broken
+GRAB_BROKEN
+#The drag operation failed due to some unspecified error
+ERROR
+
