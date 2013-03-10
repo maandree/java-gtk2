@@ -73,7 +73,7 @@ public abstract class GComponent
     
     
     /**
-     * Set the component's visibility
+     * Sets the component's visibility
      * 
      * @param  visiiblity  {@code true} for visible
      */
@@ -83,7 +83,7 @@ public abstract class GComponent
     }
     
     /**
-     * Set the component's visibility
+     * Sets the component's visibility
      * 
      * @param  visibility  {@code true} for visible
      */
@@ -103,7 +103,7 @@ public abstract class GComponent
     
     
     /**
-     * Set visible now
+     * Sets visible now
      */
     public void showNow()
     {
@@ -111,7 +111,7 @@ public abstract class GComponent
     }
     
     /**
-     * Set visible now
+     * Sets visible now
      * 
      * @param  memaddress  The memory address of the component
      */

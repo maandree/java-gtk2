@@ -49,7 +49,7 @@ JNIEXPORT void JNICALL Java_javagtk2_GComponent__1_1setVisible(JNIEnv* env, jcla
 
 
 /**
- * Set visible now
+ * Sets visible now
  * 
  * @param  memaddress  The memory address of the component
  */
