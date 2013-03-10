@@ -42,8 +42,8 @@ GTK_CONFIG=$(PKG_CONFIG) gtk+-2.0
 C_WARNINGS=-W{all,extra}
 #-pedantic
 C_OPTIMISATION=$(OPTIMISATION)
-C_GTK_CFLAGS=$$($(GTK_CONFIG) --cflags)
-C_GTK_LDFLAGS=$$($(GTK_CONFIG) --libs)
+C_GTK_CFLAGS=$(shell $(GTK_CONFIG) --cflags)
+C_GTK_LDFLAGS=$(shell $(GTK_CONFIG) --libs)
 
 # cc flags in stages
 CFLAGS=$(C_WARNINGS) $(C_OPTIMISATION) $(C_GTK_CFLAGS) -std=$(C_STD)
@@ -51,14 +51,14 @@ CPPFLAGS=
 LDFLAGS=$(C_GTK_LDFLAGS)
 
 # cc flags for jni
-JNI_INCLUDE=-I$${JAVA_HOME}/include
+JNI_INCLUDE=-I$(shell echo $${JAVA_HOME})/include
 JNI_C_CFLAGS=$(JNI_INCLUDE) -fPIC
 JNI_C_LDFLAGS=-shared
 
 # javac flags
 JAVA_VERSION=-source $(JAVA_SOURCE) -target $(JAVA_TARGET)
 JAVA_WARNINGS=-Xlint
-JAVA_OPTIMISATION=$$(echo '$(OPTIMISATION)' | sed -e 's/[1-6]//g' -e 's/-O0//g')
+JAVA_OPTIMISATION=$(shell echo '$(OPTIMISATION)' | sed -e 's/[1-6]//g' -e 's/-O0//g')
 JAVA_BOOTCLASSPATH=
 JAVA_CLASSPATH=-classpath src
 JAVA_SRCPATH=-s src
