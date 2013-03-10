@@ -76,8 +76,14 @@ C_SRC=$(shell find src | grep '\.c$$')
 C_OBJ=$(shell find src | grep '\.c$$' | sed -e 's/\.c$$/\.o/g' -e 's/^src\//obj\//g')
 
 # java files
+GEN_CONST_DIR=src/javagtk2/consts
+GEN_CONST_FILE=classes.gen
+GEN_CONST=$(GEN_CONST_DIR)/$(GEN_CONST_FILE)
+GEN_CONST_CMD=generate.py
 JAVA_SRC=$(shell find src | grep '\.java$$')
 JAVA_CLASS=$(shell find src | grep '\.java$$' | sed -e 's/\.java$$/\.class/g' -e 's/^src\//bin\//g')
+JAVA_GEN_CONST_SRC=$(shell cat "$(GEN_CONST)" | grep '^enum' | sed -e 's/$$/\.java/g' -e 's/^enum /src\/javagtk2\/consts\//g')
+JAVA_GEN_CONST_CLASS=$(shell cat "$(GEN_CONST)" | grep '^enum' | sed -e 's/$$/\.class/g' -e 's/^enum /bin\/javagtk2\/consts\//g')
 
 # h files
 JNI_H=$(shell find src | grep '\.java$$' | sed -e 's/\.java$$/\.h/g')
@@ -88,11 +94,15 @@ LIB_JAVAGTK=$(LIB_PREFIX)$(LIB)$(LIB_EXT)
 
 
 # compile
-all: $(JAVA_CLASS) $(JNI_H) $(LIB_JAVAGTK)
+all: $(JAVA_GEN_CONST_SRC) $(JAVA_GEN_CONST_CLASS) $(JAVA_CLASS) $(JNI_H) $(LIB_JAVAGTK)
 
 # generate .h
 h: $(JNI_H)
 
+
+# .java files
+$(JAVA_GEN_CONST_SRC): $(GEN_CONST) $(GEN_CONST_DIR)/$(GEN_CONST_CMD)
+	cd "$(GEN_CONST_DIR)" && "./$(GEN_CONST_CMD)" "$(GEN_CONST_FILE)"
 
 # .o files
 obj/%.o: src/%.c
@@ -116,7 +126,7 @@ src/%.h: bin/%.class
 	@sum=$$(md5sum "$@" 2>/dev/null || echo); 									  \
 	 echo $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";  \
 	 $(JAVAH) $(H_FLAGS) -o "$@" "$$(echo "$<" | sed -e 's_^bin/__g' -e 's_\.class$$__g' | sed -e 's_/_\._g')";	  \
-	 if [ "$$(wc -l "$@" | cut -d ' ' -f 1)" = 13 ]; then								  \
+	 if [ "$$(grep -v '^#' "$@" | wc -l | cut -d ' ' -f 1)" = 5 ]; then						  \
 	     rm "$@";													  \
 	 elif [ ! "$$(md5sum "$@" 2>/dev/null || echo)" = "$$sum" ]; then						  \
 	     echo -e '\e[01;32m$@ has been updated\e[00m';								  \
@@ -126,6 +136,5 @@ src/%.h: bin/%.class
 # clean up
 .PHONY: clean
 clean:
-	@rm -r bin obj $(LIB_JAVAGTK) 2>/dev/null || exit 0
-
+	@rm -r bin obj $(LIB_JAVAGTK) "$(GEN_CONST_DIR)"/*.java $$(find src | egrep '/[A-Z].*\.h') 2>/dev/null || exit 0
 
