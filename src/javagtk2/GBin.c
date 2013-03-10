@@ -32,6 +32,6 @@ JNIEXPORT jlong JNICALL Java_javagtk2_GBin__1_1getChild(JNIEnv* env, jclass clas
   (void) env;
   (void) class;
   
-  return (jlong)gtk_bin_get_child((GtkWidget*)memaddress);
+  return (jlong)gtk_bin_get_child((GtkBin*)memaddress);
 }
 

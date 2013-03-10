@@ -23,45 +23,25 @@ import java.lang.ref.*;
 
 
 /**
- * GTK bin class, a container that only contains one component
+ * GTK container class
  * 
  * @author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
-public abstract class GBin extends GContainer
+public abstract class GContainer extends GComponent
 {
     /**
      * Constructor
      * 
      * @param  memaddress  The memory address of the component
      */
-    protected GBin(final long memaddress)
+    protected GContainer(final long memaddress)
     {
         super(memaddress);
     }
     
     
     
-    /**
-     * Gets the component's child
-     * 
-     * @return  The component's child
-     */
-    public GComponent getChild()
-    {
-	final long address = __getChild(this.memaddress);
-	if (address == 0)
-	    return null;
-	final WeakReference<GComponent> ref = GComponent.memtable.get(new Long(address)); /* yes, new*/
-	return ref == null ? null : ref.get();
-    }
-    
-    /**
-     * Gets the component's child
-     * 
-     * @param   memaddress  The memory address of the component
-     * @return              The component's child memory address
-     */
-    private static native long __getChild(long memaddress);
+    // TODO http://developer.gimp.org/api/2.0/gtk/GtkContainer.html
     
 }
 
