@@ -34,7 +34,7 @@ public abstract class GComponent
      * 
      * @param  memaddress  The memory address of the component
      */
-    public GComponent(final long memaddress)
+    protected GComponent(final long memaddress)
     {
 	GComponent.memtable.put(new Long(this.memaddress = memaddress) /* yes, new */, new WeakReference<GComponent>(this));
     }

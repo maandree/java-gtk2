@@ -23,7 +23,7 @@ import java.lang.ref.*;
 
 
 /**
- * GTK Window class
+ * GTK window class
  * 
  * @author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
@@ -67,7 +67,53 @@ public class GWindow extends GComponent
      */
     public GWindow(final String title, final String role, final String id)
     {
-	super(__new());
+	this(__new(), title, role, id);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param  memaddress  The components memory address
+     */
+    protected GWindow(final long memaddress)
+    {
+	this(memaddress, null, null, null);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param  memaddress  The components memory address
+     * @param  title       The window's title
+     */
+    protected GWindow(final long memaddress, final String title)
+    {
+	this(memaddress, title, null, null);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param  memaddress  The components memory address
+     * @param  title       The window's title
+     * @param  role        The window's role
+     */
+    protected GWindow(final long memaddress, final String title, final String role)
+    {
+	this(memaddress, title, role, null);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param  memaddress  The components memory address
+     * @param  title       The window's title
+     * @param  role        The window's role
+     * @param  id          The window's startup identifier
+     */
+    protected GWindow(final long memaddress, final String title, final String role, final String id)
+    {
+        super(memaddress);
 	if (title != null)
 	    this.setTitle(title);
 	if (role != null)
