@@ -1,0 +1,14 @@
+Make dependencies::
+
+    gtk2
+    java-environment
+    gcc
+    python>=3
+
+
+Runtime dependencies::
+
+    gtk2
+    java-runtime
+
+
