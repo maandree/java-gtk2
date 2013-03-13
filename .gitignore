@@ -7,6 +7,7 @@ _/
 *.swp
 
 /bin/
+/obj/
 *.o
 *.so
 *.out
