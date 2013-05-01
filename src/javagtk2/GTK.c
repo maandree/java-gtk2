@@ -20,15 +20,18 @@
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <gdk/gdk.h>
 
 
 /**
- * Initialise GTK
+ * Initialise GTK and GDK
  * 
- * @param  args  The command line arguments, including the executable
+ * @param   args  The command line arguments, including the executable
+ * @return        {@code true} on success
  */
-JNIEXPORT void JNICALL Java_javagtk2_GTK__1_1initialise(JNIEnv* env, jclass class, jobjectArray args)
+JNIEXPORT jboolean JNICALL Java_javagtk2_GTK__1_1initialise(JNIEnv* env, jclass class, jobjectArray args)
 {
+  int gtk_success, gdk_success;
   int i, argc = (*env)->GetArrayLength(env, args);
   char** argv = (char**)malloc(argc * sizeof(char*));
   
@@ -40,7 +43,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GTK__1_1initialise(JNIEnv* env, jclass clas
       *(argv + i) = (char*)((*env)->GetStringUTFChars(env, string, 0));
     }
   
-  gtk_init(&argc, &argv);
+  gtk_success = gtk_init_check(&argc, &argv);
+  gdk_success = gdk_init_check(&argc, &argv);
   
   for (i = 0; i < argc; i++)
     {
@@ -49,6 +53,8 @@ JNIEXPORT void JNICALL Java_javagtk2_GTK__1_1initialise(JNIEnv* env, jclass clas
     }
   
   free(argv);
+  
+  return (jboolean)(gtk_success & gdk_success);
 }
 
 

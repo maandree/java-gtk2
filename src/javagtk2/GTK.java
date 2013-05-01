@@ -37,19 +37,21 @@ public class GTK
     
     
     /**
-     * Whether GTK has been synchronised
+     * Whether GTK has been initialised
      */
     private static boolean isInitialised = false;
     
     
     
     /**
-     * Initialise GTK
+     * Initialise GTK and GDK
      * 
      * @param  exec  The executable
      * @param  args  The command line arguments, excluding the executable
+     * 
+     * @throws  GTKException  On initialisation error
      */
-    public static synchronized void initialise(final String exec, final String... args)
+    public static synchronized void initialise(final String exec, final String... args) throws GTKException
     {
 	if (GTK.isInitialised == false)
 	{   GTK.isInitialised = true;
@@ -59,16 +61,18 @@ public class GTK
 	    final String[] argv = new String[args.length + 1];
 	    argv[0] = exec;
 	    System.arraycopy(args, 0, argv, 1, args.length);
-	    __initialise(args);
+	    if (__initialise(args) == false)
+		throw new GTKException("Could not initialise GTK.");
 	}
     }
     
     /**
-     * Initialise GTK
+     * Initialise GTK and GDK
      * 
-     * @param  args  The command line arguments, including the executable
+     * @param   args  The command line arguments, including the executable
+     * @return        {@code true} on success
      */
-    private static native void __initialise(final String[] args);
+    private static native boolean __initialise(final String[] args); // TODO should remove unused arguments from `args`
     
     
     /**

@@ -20,37 +20,19 @@ package javagtk2;
 
 
 /**
- * Library test
+ * GTK exception class
  * 
  * @author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
-public class Test
+@SuppressWarnings("serial")
+public class GTKException extends Exception
 {
     /**
-     * Non-constructor
+     * Constructor
      */
-    private Test()
+    public GTKException(final String message)
     {
-	assert false : "You may not create instances of javagtk2.Test";
-    }
-    
-    
-    /**
-     * This is the main entry point of the test
-     * 
-     * @param  args  Command line arguments
-     * 
-     * @return  GTKException  On GTK error
-     */
-    public static void main(final String... args) throws GTKException
-    {
-	GTK.initialise("java-gtk2.test", args);
-	
-	final GWindow window = new GWindow("java-gtk2 test");
-	window.setOpacity(0.5);
-	window.setVisible(true);
-	
-	GTK.main();
+	super(message);
     }
 
 }
