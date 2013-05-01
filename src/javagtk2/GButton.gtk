@@ -1,0 +1,60 @@
+/**
+ * java-gtk2 – GTK+ 2.0 bindings for Java
+ * 
+ * Copyright © 2013  Mattias Andrée (maandree@member.fsf.org)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package javagtk2;
+include <gtk/gtk.h>
+
+
+author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
+
+
+# GTK button class, a button that can have a label or icon
+class GButton : GBin --> GtkButton
+
+
+new gtk_button_new()
+new gtk_button_new_label(string text, boolean mnemonic = false)
+new gtk_button_new_mnemonic(string text, boolean mnemonic @= true)
+
+static new fromStock:gtk_button_new_from_stock(String item)
+
+void setRelief:gtk_button_set_relief(int style)
+int setRelief:gtk_button_get_relief()
+
+void getText:gtk_button_set_label(string text)
+string getText:gtk_button_get_label()
+
+void getStock:gtk_button_set_use_stock(boolean value)
+boolean isStock:gtk_button_get_use_stock()
+
+void setUnderlined:gtk_button_set_use_underline(boolean value)
+boolean isUnderlined:gtk_button_get_use_underline()
+
+void setFocusOnClick:gtk_button_set_focus_on_click(boolean value)
+boolean getFocusOnClick:gtk_button_get_focus_on_click()
+
+void setAlignment:gtk_button_set_alignment(float x, float y)
+float getHorizonalAlignment:gtk_button_get_alignment(return x, void float)
+float getVerticalAlignment:gtk_button_get_alignment(void float, return y)
+
+void setIcon:gtk_button_set_image(GButton:GtkWidget* image)
+GButton:GtkWidget* getIcon:gtk_button_get_image()
+
+void setIconPosition:gtk_button_set_image(int position)
+int getIconPosition:gtk_button_get_image()
+
