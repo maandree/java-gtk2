@@ -57,7 +57,7 @@ for filename in sys.argv[1:]:
                             data += '    public static final int %s = %s;\n    \n' % (item[0], item[1])
                         data += '    \n    \n    /**\n     * Non-constructor\n     */\n'
                         data += '    private %s()\n    {\n' % classinfo[0]
-                        data += '        assert false : "You are not meant to create instance of constant classes";\n'
+                        data += '        assert false : "You are not meant to create instances of constant classes";\n'
                         data += '    }\n    \n'
                         data += '}\n\n'
                         with open('%s.java' % classinfo[0], 'wb') as cfile:
