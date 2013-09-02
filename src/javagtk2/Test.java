@@ -46,7 +46,10 @@ public class Test
     {
 	GTK.initialise("java-gtk2.test", args);
 	
+	final GButton button = GButton.fromStock("gtk-ok");
 	final GWindow window = new GWindow("java-gtk2 test");
+	window.add(button);
+	button.setVisible(true);
 	window.setOpacity(0.5);
 	window.setVisible(true);
 	

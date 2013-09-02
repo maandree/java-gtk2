@@ -41,6 +41,45 @@ public abstract class GContainer extends GComponent
     
     
     
+    /**
+     * Add a component to the container
+     * 
+     * @param  component  The component to add
+     */
+    public void add(GComponent component)
+    {
+	__add(this.memaddress, component.memaddress);
+    }
+    
+    /**
+     * Remove a component from the container
+     * 
+     * @param  component  The component to remove
+     */
+    public void remove(GComponent component)
+    {
+	__remove(this.memaddress, component.memaddress);
+    }
+    
+    
+    /**
+     * Add a component to a container
+     * 
+     * @param  container  The memory address of the container
+     * @param  component  The memory address of the component to add
+     */
+    private static native void __add(long container, long component);
+    
+    /**
+     * Remove a component from a container
+     * 
+     * @param  container  The memory address of the container
+     * @param  component  The memory address of the component to remove
+     */
+    private static native void __remove(long container, long component);
+    
+    
+    
     // TODO http://developer.gimp.org/api/2.0/gtk/GtkContainer.html
     
 }
