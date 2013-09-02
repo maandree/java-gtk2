@@ -20,7 +20,7 @@ package javagtk2;
 include <gtk/gtk.h>
 
 
-author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
+@author  Mattias Andrée <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
 
 
 # GTK button class, a button that can have a label or icon
@@ -28,16 +28,16 @@ class GButton : GBin --> GtkButton
 
 
 new gtk_button_new()
-new gtk_button_new_label(string text, boolean mnemonic = false)
-new gtk_button_new_mnemonic(string text, boolean mnemonic @= true)
+new gtk_button_new_label(String text, boolean mnemonic = false)
+new gtk_button_new_mnemonic(String text, boolean mnemonic @= true)
 
 static new fromStock:gtk_button_new_from_stock(String item)
 
 void setRelief:gtk_button_set_relief(int style)
 int setRelief:gtk_button_get_relief()
 
-void getText:gtk_button_set_label(string text)
-string getText:gtk_button_get_label()
+void getText:gtk_button_set_label(String text)
+String getText:gtk_button_get_label()
 
 void getStock:gtk_button_set_use_stock(boolean value)
 boolean isStock:gtk_button_get_use_stock()
@@ -52,8 +52,8 @@ void setAlignment:gtk_button_set_alignment(float x, float y)
 float getHorizonalAlignment:gtk_button_get_alignment(return x, void float)
 float getVerticalAlignment:gtk_button_get_alignment(void float, return y)
 
-void setIcon:gtk_button_set_image(GButton:GtkWidget* image)
-GButton:GtkWidget* getIcon:gtk_button_get_image()
+void setIcon:gtk_button_set_image(GComponent:GtkWidget image)
+GComponent:GtkWidget getIcon:gtk_button_get_image()
 
 void setIconPosition:gtk_button_set_image(int position)
 int getIconPosition:gtk_button_get_image()
