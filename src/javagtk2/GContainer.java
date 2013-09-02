@@ -68,7 +68,7 @@ public abstract class GContainer extends GComponent
      * @param  container  The memory address of the container
      * @param  component  The memory address of the component to add
      */
-    private static native void __add(long container, long component);
+    private static native void __add(long container, long component); // gtk_container_add
     
     /**
      * Remove a component from a container
@@ -76,7 +76,7 @@ public abstract class GContainer extends GComponent
      * @param  container  The memory address of the container
      * @param  component  The memory address of the component to remove
      */
-    private static native void __remove(long container, long component);
+    private static native void __remove(long container, long component); // gtk_container_remove
     
     
     
